@@ -12,11 +12,11 @@ class Player:
     def move(self, new_location):
         pass
 
-    def pick_up(self, item):
-        pass
+    # def pick_up(self, item):
+    #     pass
     
-    def put_down(self):
-        pass
+    # def put_down(self):
+    #     pass
 
-    def in_region(self, current_location):
-        pass
+    # def in_region(self, current_location):
+    #     pass
