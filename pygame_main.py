@@ -61,19 +61,11 @@ class Player(pygame.sprite.Sprite):
         self.frame = 0 # count frames
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-
-        img1 = pygame.image.load(os.path.join('images', 'hero1.png')).convert()
-        img2 = pygame.image.load(os.path.join('images', 'hero2.png')).convert()
-        self.images.append(img1)
-        self.images.append(img2)
-        self.image = self.images[0]
-        self.rect = self.image.get_rect()
-        # self.images = []
-        # for i in range(1, 2):
-        #     img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert()
-        #     self.images.append(img)
-        #     self.image = self.images[0]
-        #     self.rect = self.image.get_rect()
+        for i in range(1, 3):
+            img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert()
+            self.images.append(img)
+            self.image = self.images[0]
+            self.rect = self.image.get_rect()
     
     def control(self,x,y):
         """
