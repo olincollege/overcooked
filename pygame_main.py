@@ -45,16 +45,6 @@ BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 main = True
 
-'''
-Setup
-'''
-
-clock = pygame.time.Clock()
-pygame.init()
-world = pygame.display.set_mode([worldx, worldy])
-# world = pygame.display.set_mode([worldx,worldy])
-# backdrop = pygame.image.load(os.path.join('images','stage.png'))
-# backdropbox = world.get_rect()
 
 '''
 Objects
@@ -66,13 +56,67 @@ class Player(pygame.sprite.Sprite):
     """
 
     def __init__(self):
+        self.movex = 0 # move along X
+        self.movey = 0 # move along Y
+        self.frame = 0 # count frames
         pygame.sprite.Sprite.__init__(self)
         self.images = []
 
-        img = pygame.image.load(os.path.join('images', 'hero.png')).convert()
-        self.images.append(img)
+        img1 = pygame.image.load(os.path.join('images', 'hero1.png')).convert()
+        img2 = pygame.image.load(os.path.join('images', 'hero2.png')).convert()
+        self.images.append(img1)
+        self.images.append(img2)
         self.image = self.images[0]
         self.rect = self.image.get_rect()
+        # self.images = []
+        # for i in range(1, 2):
+        #     img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert()
+        #     self.images.append(img)
+        #     self.image = self.images[0]
+        #     self.rect = self.image.get_rect()
+    
+    def control(self,x,y):
+        """
+        control player movement
+        """
+        self.movex += x
+        self.movey += y
+    
+    def update(self):
+        """
+        Update sprite position
+        """
+        self.rect.x = self.rect.x + self.movex   
+        self.rect.y = self.rect.y + self.movey
+    
+    def pick_up(self, color_num):
+        """
+        Change sprite color.
+        """
+        self.image = self.images[color_num]
+
+'''
+Setup
+'''
+
+clock = pygame.time.Clock()
+pygame.init()
+# world = pygame.display.set_mode([worldx, worldy])
+
+world = pygame.display.set_mode([worldx,worldy])
+backdrop = pygame.image.load(os.path.join('images','stage.png'))
+backdropbox = world.get_rect()
+
+player = Player()   # spawn player
+player.rect.x = 0   # go to x
+player.rect.y = 0   # go to y
+player_list = pygame.sprite.Group()
+player_list.add(player)
+steps = 10  # how many pixels to move
+# world = pygame.display.set_mode([worldx,worldy])
+# backdrop = pygame.image.load(os.path.join('images','stage.png'))
+# backdropbox = world.get_rect()
+
 
 '''
 Main loop
@@ -80,21 +124,47 @@ Main loop
 
 while main:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            try:
-                sys.exit()
-            finally:
-                main = False
+        # if event.type == pygame.QUIT:
+        #     pygame.quit()
+        #     try:
+        #         sys.exit()
+        #     finally:
+        #         main = False
 
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                player.control(-steps,0)
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                player.control(steps,0)
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                player.control(0,-steps)
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
+                player.control(0, steps)
+            if  event.key == ord('f'):
+                if player.rect.x == 0 and player.rect.y == 0:
+                    player.pick_up(0)
+                else:
+                    player.pick_up(1)
+            
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                player.control(steps,0)
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                player.control(-steps,0)
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                player.control(0, steps)
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
+                player.control(0, -steps)
             if event.key == ord('q'):
                 pygame.quit()
-            try:
                 sys.exit()
-            finally:
-                main = False
-    world.fill(BLUE)
+                main = False  
+
+    # world.fill(BLUE)
+    world.blit(backdrop, backdropbox)
+    player.update()  # update player position
+    player_list.draw(world) # draw player
     pygame.display.flip()
     clock.tick(fps)
 
