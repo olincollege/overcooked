@@ -43,7 +43,9 @@ ani   = 4   # animation cycles
 BLUE  = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
+ALPHA = (0, 255, 0)
 main = True
+
 
 
 '''
@@ -63,6 +65,8 @@ class Player(pygame.sprite.Sprite):
         self.images = []
         for i in range(1, 3):
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert()
+            img.convert_alpha()     # optimise alpha
+            img.set_colorkey(ALPHA) # set alpha
             self.images.append(img)
             self.image = self.images[0]
             self.rect = self.image.get_rect()
