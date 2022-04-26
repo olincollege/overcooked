@@ -1,34 +1,3 @@
-# # define a main function
-# def main():
-
-#     # initialize the pygame module
-#     pygame.init()
-#     # load and set the logo
-#     logo = pygame.image.load("logo32x32.png")
-#     pygame.display.set_icon(logo)
-#     pygame.display.set_caption("minimal program")
-
-#     # create a surface on screen that has the size of 240 x 180
-#     screen = pygame.display.set_mode((240,180))
-
-#     # define a variable to control the main loop
-#     running = True
-
-#     # main loop
-#     while running:
-#         # event handling, gets all event from the event queue
-#         for event in pygame.event.get():
-#             # only do something if the event is of type QUIT
-#             if event.type == pygame.QUIT:
-#                 # change the value to False, to exit the main loop
-#                 running = False
-
-
-# # run the main function only if this module is executed as the main script
-# # (if you import this as a module then nothing is executed)
-# if name=="main":
-#     # call the main function
-#     main()
 import pygame
 import sys
 import os
@@ -43,14 +12,31 @@ ani   = 4   # animation cycles
 BLUE  = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
-ALPHA = (0, 255, 0)
+ALPHA = (0, 0, 0)
 main = True
-
+money = 0
 
 
 '''
 Objects
 '''
+start_time = pygame.time.get_ticks() 
+def time_left():
+    total_time_minutes = 2
+    total_time_milli = (total_time_minutes*60)*1000
+    time_left_milli =  total_time_milli - pygame.time.get_ticks()
+    time_left = int(time_left_milli/1000)
+    return time_left
+
+def draw_timer(world, x, y, time_left):
+    font = pygame.font.Font(None, 60) #Choose the font for the text
+    text = font.render(str(time_left), 1, BLACK) #Create the text
+    world.blit(text, (x, y)) #Draw the text on the screen
+
+def draw_money(world, x, y, amount):
+    font = pygame.font.Font(None, 60) #Choose the font for the text
+    text = font.render(str(amount), 1, BLACK) #Create the text
+    world.blit(text, (x, y))
 
 class Player(pygame.sprite.Sprite):
     """
@@ -97,8 +83,6 @@ Setup
 
 clock = pygame.time.Clock()
 pygame.init()
-# world = pygame.display.set_mode([worldx, worldy])
-
 world = pygame.display.set_mode([worldx,worldy])
 backdrop = pygame.image.load(os.path.join('images','stage.png'))
 backdropbox = world.get_rect()
@@ -117,6 +101,7 @@ steps = 10  # how many pixels to move
 '''
 Main loop
 '''
+    
 
 while main:
     for event in pygame.event.get():
@@ -155,10 +140,11 @@ while main:
             if event.key == ord('q'):
                 pygame.quit()
                 sys.exit()
-                main = False  
+                main = False 
 
-    # world.fill(BLUE)
     world.blit(backdrop, backdropbox)
+    draw_timer(world, 860, 55, time_left())
+    draw_money(world, 700, 55, money)
     player.update()  # update player position
     player_list.draw(world) # draw player
     pygame.display.flip()
