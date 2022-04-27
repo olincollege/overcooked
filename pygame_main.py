@@ -1,6 +1,8 @@
+from prompt_toolkit import print_formatted_text
 import pygame
 import sys
 import os
+import random
 
 '''
 Variables
@@ -15,12 +17,27 @@ WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
 main = True
 money = 0
-recipe = [[True,False,True],[True,True,True]]
+
+#recipe = [[True,False,True],[True,True,True]]
+ingredients = ["Strawberry","Canteloup","Grape"]
 
 '''
 Objects
 '''
-start_time = pygame.time.get_ticks() 
+start_time = pygame.time.get_ticks()
+
+def random_recipe(num_recipes):
+    recipes = []
+    for _ in range(num_recipes):
+        recipe = []
+        for _ in range(3):
+            recipe.append(random.choice([True, False]))
+        if sum(recipe) != 0:
+            recipes.append(recipe)
+    return recipes
+recipes = random_recipe(10)
+print(f"real recipe{recipes}")
+
 def time_left():
     total_time_minutes = 2
     total_time_milli = (total_time_minutes*60)*1000
@@ -38,6 +55,19 @@ def draw_money(world, x, y, amount):
     text = font.render(str(amount), 1, BLACK) #Create the text
     world.blit(text, (x, y))
 
+
+def draw_recipe(world, x, y, recipe):
+    font = pygame.font.Font(None, 30) #Choose the font for the text
+    current_recipe = []
+    for i in range(len(ingredients)):
+        if recipe[i] == True:
+            current_recipe.append(ingredients[i])
+        
+    text = font.render(str(current_recipe), 1, BLACK) #Create the text
+    world.blit(text, (x, y))
+
+
+
 class Player(pygame.sprite.Sprite):
     """
     Spawn a player
@@ -50,6 +80,8 @@ class Player(pygame.sprite.Sprite):
         self.isplate = False
         self.plate = [False,False,False]
         self.geld = 100
+#        self.recipes = random_recipe(10)
+        self.recipe_counter = 0
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for i in range(1, 10):
@@ -90,21 +122,25 @@ class Player(pygame.sprite.Sprite):
         elif sum(self.plate) == 1:
             self.geld -= 10
         self.plate = [False,False,False]
+        print(recipes[0])
         print("tossed")
 
-    def sell(self):
+    def sell(self,recipes):
         self.isplate = False
         self.pick_up(0)
-        if self.plate == recipe[0]:
+        if self.plate == recipes[self.recipe_counter]:
             if sum(self.plate) == 3:
                 player.geld += 30
             elif sum(player.plate) == 2:
                 player.geld += 20
             elif sum(player.plate) == 1:
                 player.geld += 10
-            recipe = recipe[1:]
+            #recipes = recipes[1:]
+            print(f"after removal {recipes}")
             self.plate = [False,False,False]
             print("sold")
+            self.recipe_counter += 1
+
         else:
             self.toss()
 
@@ -200,21 +236,7 @@ while main:
                     player.toss()
 
                 elif 355 < player.rect.x < 655 and player.rect.y > 500:
-                    player.isplate = False
-                    player.pick_up(0)
-                    if player.plate == recipe[0]:
-                        if sum(player.plate) == 3:
-                            player.geld += 30
-                        elif sum(player.plate) == 2:
-                            player.geld += 20
-                        elif sum(player.plate) == 1:
-                            player.geld += 10
-                        recipe = recipe[1:]
-                        player.plate = [False,False,False]
-                        print("sold")
-                    else:
-                        player.toss
-                        
+                    player.sell(recipes)
 
                
             
@@ -245,6 +267,7 @@ while main:
     world.blit(backdrop, backdropbox)
     draw_timer(world, 860, 55, time_left())
     draw_money(world, 700, 55, player.geld)
+    draw_recipe(world, 30, 55, recipes[player.recipe_counter])
     player.update()  # update player position
     player_list.draw(world) # draw player
     pygame.display.flip()
