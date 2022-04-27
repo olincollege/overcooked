@@ -47,9 +47,11 @@ class Player(pygame.sprite.Sprite):
         self.movex = 0 # move along X
         self.movey = 0 # move along Y
         self.frame = 0 # count frames
+        self.isplate = False
+        self.plate = [False,False,False]
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        for i in range(1, 3):
+        for i in range(1, 10):
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert()
             img.convert_alpha()     # optimise alpha
             img.set_colorkey(ALPHA) # set alpha
@@ -89,7 +91,7 @@ backdropbox = world.get_rect()
 
 player = Player()   # spawn player
 player.rect.x = 0   # go to x
-player.rect.y = 0   # go to y
+player.rect.y = 275   # go to y
 player_list = pygame.sprite.Group()
 player_list.add(player)
 steps = 10  # how many pixels to move
@@ -105,12 +107,7 @@ Main loop
 
 while main:
     for event in pygame.event.get():
-        # if event.type == pygame.QUIT:
-        #     pygame.quit()
-        #     try:
-        #         sys.exit()
-        #     finally:
-        #         main = False
+
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == ord('a'):
@@ -121,11 +118,63 @@ while main:
                 player.control(0,-steps)
             if event.key == pygame.K_DOWN or event.key == ord('s'):
                 player.control(0, steps)
-            if  event.key == ord('f'):
-                if player.rect.x == 0 and player.rect.y == 0:
-                    player.pick_up(0)
-                else:
+            
+            if event.key == ord('f'):
+                if 50 < player.rect.x < 250 and player.rect.y > 500:
+                    player.isplate = True
                     player.pick_up(1)
+
+
+                if player.isplate:
+                    if 50 < player.rect.x < 250 and player.rect.y < 315:
+                        if player.plate[0] == False:
+                            player.plate[0] = True
+                            if player.plate[1] == False and player.plate[2] == False:
+                                player.pick_up(2)
+                            elif player.plate[1] == True and player.plate[2] == False:
+                                player.pick_up(5)
+                            elif player.plate[1] == True and player.plate[2] == True:
+                                player.pick_up(6)
+                            else:
+                                player.pick_up(8)
+
+                    elif 355 < player.rect.x < 600 and player.rect.y < 315:
+                        if player.plate[1] == False:
+                            player.plate[1] = True
+                            if player.plate[0] == False and player.plate[2] == False:
+                                player.pick_up(3)
+                            elif player.plate[0] == True and player.plate[2] == False:
+                                player.pick_up(5)
+                            elif player.plate[0] == False and player.plate[2] == True:
+                                player.pick_up(7)
+                            else:
+                                player.pick_up(8)  
+
+                    elif 655 < player.rect.x < 910 and player.rect.y < 315:
+                        if player.plate[2] == False:
+                            player.plate[2] = True
+                            if player.plate[0] == False and player.plate[1] == False:
+                                player.pick_up(4)
+                            elif player.plate[0] == True and player.plate[1] == False:
+                                player.pick_up(6)
+                            elif player.plate[0] == False and player.plate[1] == True:
+                                player.pick_up(7)
+                            else:
+                                player.pick_up(8)
+                    else:
+                        pass
+                else: 
+                    print("you need a plate")
+
+            if event.key == ord('e'):
+                if 760 < player.rect.x < 910 and player.rect.y > 500:
+                    player.isplate = False
+                    player.pick_up(0)
+                    player.plate = [False,False,False]
+                    print("tossed")
+                        
+
+               
             
 
         if event.type == pygame.KEYUP:
@@ -142,6 +191,15 @@ while main:
                 sys.exit()
                 main = False 
 
+        if player.rect.x < 0:
+            player.rect.x = 0
+        elif player.rect.x > 900:
+            player.rect.x = 900
+        elif player.rect.y < 275:
+            player.rect.y = 275
+        elif player.rect.y > 536:
+            player.rect.y = 536
+
     world.blit(backdrop, backdropbox)
     draw_timer(world, 860, 55, time_left())
     draw_money(world, 700, 55, money)
@@ -149,6 +207,9 @@ while main:
     player_list.draw(world) # draw player
     pygame.display.flip()
     clock.tick(fps)
+    if time_left == 0:
+        pygame.quit()
+        sys.exit()
 
 # while main:
 #     for event in pygame.event.get():
