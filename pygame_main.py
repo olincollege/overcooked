@@ -15,7 +15,7 @@ WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
 main = True
 money = 0
-
+recipe = [[True,False,True],[True,True,True]]
 
 '''
 Objects
@@ -49,6 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.frame = 0 # count frames
         self.isplate = False
         self.plate = [False,False,False]
+        self.geld = 100
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for i in range(1, 10):
@@ -78,6 +79,34 @@ class Player(pygame.sprite.Sprite):
         Change sprite color.
         """
         self.image = self.images[color_num]
+    
+    def toss(self):
+        self.isplate = False
+        self.pick_up(0)
+        if sum(self.plate) == 3:
+            self.geld -= 30
+        elif sum(self.plate) == 2:
+            self.geld -= 20
+        elif sum(self.plate) == 1:
+            self.geld -= 10
+        self.plate = [False,False,False]
+        print("tossed")
+
+    def sell(self):
+        self.isplate = False
+        self.pick_up(0)
+        if self.plate == recipe[0]:
+            if sum(self.plate) == 3:
+                player.geld += 30
+            elif sum(player.plate) == 2:
+                player.geld += 20
+            elif sum(player.plate) == 1:
+                player.geld += 10
+            recipe = recipe[1:]
+            self.plate = [False,False,False]
+            print("sold")
+        else:
+            self.toss()
 
 '''
 Setup
@@ -168,10 +197,23 @@ while main:
 
             if event.key == ord('e'):
                 if 760 < player.rect.x < 910 and player.rect.y > 500:
+                    player.toss()
+
+                elif 355 < player.rect.x < 655 and player.rect.y > 500:
                     player.isplate = False
                     player.pick_up(0)
-                    player.plate = [False,False,False]
-                    print("tossed")
+                    if player.plate == recipe[0]:
+                        if sum(player.plate) == 3:
+                            player.geld += 30
+                        elif sum(player.plate) == 2:
+                            player.geld += 20
+                        elif sum(player.plate) == 1:
+                            player.geld += 10
+                        recipe = recipe[1:]
+                        player.plate = [False,False,False]
+                        print("sold")
+                    else:
+                        player.toss
                         
 
                
@@ -202,7 +244,7 @@ while main:
 
     world.blit(backdrop, backdropbox)
     draw_timer(world, 860, 55, time_left())
-    draw_money(world, 700, 55, money)
+    draw_money(world, 700, 55, player.geld)
     player.update()  # update player position
     player_list.draw(world) # draw player
     pygame.display.flip()
