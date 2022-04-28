@@ -3,6 +3,7 @@ import sys
 import os
 from player import Player
 from helper import random_recipe, time_left, draw_timer, draw_money,draw_recipe
+from helper import PopUp
 '''
 Variables
 '''
@@ -16,7 +17,7 @@ WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
 main = True
 money = 0
-ingredients = ["Strawberry","Canteloup","Grape"]
+ingredients = ["Strawberry","Canteloupe","Grape"]
 
 
 '''
@@ -37,6 +38,12 @@ player_list = pygame.sprite.Group()
 player_list.add(player)
 steps = 10  # how many pixels to move
 
+pop_ups = PopUp()
+pop_ups.rect.x = 280   # go to x
+pop_ups.rect.y = 360   # go to y
+pop_ups_list = pygame.sprite.Group()
+pop_ups_list.add(pop_ups)
+
 start_time = pygame.time.get_ticks()
 recipes = random_recipe(20)
 counter = time_left()
@@ -50,7 +57,7 @@ while main:
         if event.type == pygame.USEREVENT: 
             counter -= 1
             print(counter)
-            text = str(counter).rjust(3) if counter > 0 else 'boom!'
+            text = str(counter).rjust(3) if counter > 0 else '0'
         #if counter <= 0: 
             # pygame.quit()
             # sys.exit()
@@ -153,7 +160,10 @@ while main:
         draw_money(world, 700, 55, player.geld)
         draw_recipe(world, 30, 55, recipes[player.recipe_counter])
     else:
-        draw_money(world, 350, 300, f"You gained {player.geld}.")
+        pygame.sprite.Sprite.kill(player)
+        pop_ups.change(1)
+        pop_ups_list.draw(world)
+        draw_money(world, 540, 450, f"{player.geld}")
     
     player.update()  # update player position
     player_list.draw(world) # draw player
