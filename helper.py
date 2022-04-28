@@ -43,7 +43,7 @@ def time_left():
 
     """
 
-    total_time_minutes = 2
+    total_time_minutes = 0.1
     total_time_milli = (total_time_minutes*60)*1000
     time_left_milli =  total_time_milli - pygame.time.get_ticks()
     time_left = int(time_left_milli/1000)

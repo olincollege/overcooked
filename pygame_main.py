@@ -22,9 +22,10 @@ ingredients = ["Strawberry","Canteloup","Grape"]
 '''
 Setup
 '''
-
-clock = pygame.time.Clock()
 pygame.init()
+clock = pygame.time.Clock()
+pygame.time.set_timer(pygame.USEREVENT, 1000)
+
 world = pygame.display.set_mode([worldx,worldy])
 backdrop = pygame.image.load(os.path.join('images','stage.png'))
 backdropbox = world.get_rect()
@@ -38,7 +39,7 @@ steps = 10  # how many pixels to move
 
 start_time = pygame.time.get_ticks()
 recipes = random_recipe(20)
-
+counter = time_left()
 
 '''
 Main loop
@@ -46,6 +47,14 @@ Main loop
     
 while main:
     for event in pygame.event.get():
+        if event.type == pygame.USEREVENT: 
+            counter -= 1
+            print(counter)
+            text = str(counter).rjust(3) if counter > 0 else 'boom!'
+        if counter < 0: 
+            pygame.quit()
+            sys.exit()
+            main = False 
 
 
         if event.type == pygame.KEYDOWN:
@@ -136,6 +145,7 @@ while main:
         elif player.rect.y > 536:
             player.rect.y = 536
 
+
     world.blit(backdrop, backdropbox)
     draw_timer(world, 860, 55, time_left())
     draw_money(world, 700, 55, player.geld)
@@ -144,6 +154,4 @@ while main:
     player_list.draw(world) # draw player
     pygame.display.flip()
     clock.tick(fps)
-    if time_left == 0:
-        pygame.quit()
-        sys.exit()
+    
