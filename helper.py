@@ -90,17 +90,23 @@ class PopUp(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        for i in range(1, 3):
-            img = pygame.image.load(os.path.join('images', 'pop' + str(i) + '.png')).convert()
-            img.convert_alpha()     # optimise alpha
-            img.set_colorkey(ALPHA) # set alpha
-            self.images.append(img)
-            self.image = self.images[0]
-            self.rect = self.image.get_rect()
-    
+        # for i in range(1, 3):
+        #     img = pygame.image.load(os.path.join('images', 'pop' + str(i) + '.png')).convert()
+        #     img.convert_alpha()     # optimise alpha
+        #     img.set_colorkey(ALPHA) # set alpha
+        #     self.images.append(img)
+        #     self.image = self.images[0]
+        #     self.rect = self.image.get_rect()
+        img = pygame.image.load(os.path.join('images', 'pop3.png')).convert()
+        img.convert_alpha()     # optimise alpha
+        img.set_colorkey(ALPHA)
+        self.image = img
+        self.rect = self.image.get_rect()
+
     def change(self, color_num):
         """
         Change sprite color.
         """
-        self.image = self.images[color_num]
+        pass
+
     

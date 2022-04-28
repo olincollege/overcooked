@@ -161,7 +161,7 @@ while main:
         draw_recipe(world, 30, 55, recipes[player.recipe_counter])
     else:
         pygame.sprite.Sprite.kill(player)
-        pop_ups.change(1)
+        # pop_ups.change(1)
         pop_ups_list.draw(world)
         draw_money(world, 540, 450, f"{player.geld}")
     
