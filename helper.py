@@ -1,18 +1,16 @@
+"""
+Helper functions that are used in pygame_main.py
+"""
 import random
-import pygame
 import os
+import pygame
 
-worldx = 960
-worldy = 720
-fps   = 40  # frame rate
-ani   = 4   # animation cycles
-BLUE  = (25, 25, 200)
+BLUE = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
-main = True
-money = 0
-ingredients = ["Strawberry","Canteloup","Grape"]
+ingredients = ["Strawberry", "Canteloup", "Grape"]
+
 
 def random_recipe(num_recipes):
     """
@@ -35,6 +33,7 @@ def random_recipe(num_recipes):
             recipes.append(recipe)
     return recipes
 
+
 def time_left():
     """
     Counts the time left in the game
@@ -46,67 +45,68 @@ def time_left():
 
     total_time_minutes = 0.1
     total_time_milli = (total_time_minutes*60)*1000
-    time_left_milli =  total_time_milli - pygame.time.get_ticks()
-    time_left = int(time_left_milli/1000)
-    if time_left <= 0:
-        time_left = "0"
+    time_left_milli = total_time_milli - pygame.time.get_ticks()
+    left_time = int(time_left_milli/1000)
+    if left_time <= 0:
+        left_time = "0"
 
-    return time_left
+    return left_time
 
 
-def draw_timer(world, x, y, time_left):
+def draw_timer(world, x_coord, y_coord, left_time):
     """
     Draws the time on the game screen
     """
 
-    font = pygame.font.Font(None, 60) #Choose the font for the text
-    text = font.render(str(time_left), 1, BLACK) #Create the text
-    world.blit(text, (x, y)) #Draw the text on the screen
+    font = pygame.font.Font(None, 60)  # Choose the font for the tex_coordt
+    text = font.render(str(left_time), 1, BLACK)  # Create the text
+    world.blit(text, (x_coord, y_coord))  # Draw the text on the screen
 
-def draw_money(world, x, y, amount):
+
+def draw_money(world, x_coord, y_coord, amount):
     """
     Draws the money on the game screen
-    """    
-    font = pygame.font.Font(None, 60) #Choose the font for the text
-    text = font.render(str(amount), 1, BLACK) #Create the text
-    world.blit(text, (x, y))
+    """
+    font = pygame.font.Font(None, 60)  # Choose the font for the text
+    text = font.render(str(amount), 1, BLACK)  # Create the text
+    world.blit(text, (x_coord, y_coord))
 
 
-def draw_recipe(world, x, y, recipe):
+def draw_recipe(world, x_coord, y_coord, recipe):
     """
     Draws the recipes on the game screen
     """
-    font = pygame.font.Font(None, 30) #Choose the font for the text
+    font = pygame.font.Font(None, 30)  # Choose the font for the text
     current_recipe = []
-    for i in range(len(ingredients)):
-        if recipe[i] == True:
-            current_recipe.append(ingredients[i])
-        
-    text = font.render(str(current_recipe), 1, BLACK) #Create the text
-    world.blit(text, (x, y))
+    for index,ingredient in enumerate(ingredients):
+        if recipe[index] is True:
+            current_recipe.append(ingredient)
+
+    text = font.render(str(current_recipe), 1, BLACK)  # Create the text
+    world.blit(text, (x_coord, y_coord))
+
 
 class PopUp(pygame.sprite.Sprite):
+    """
+    Creates pop up window at the end of the game
+    """
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.images = []
-        # for i in range(1, 3):
-        #     img = pygame.image.load(os.path.join('images', 'pop' + str(i) + '.png')).convert()
-        #     img.convert_alpha()     # optimise alpha
-        #     img.set_colorkey(ALPHA) # set alpha
-        #     self.images.append(img)
-        #     self.image = self.images[0]
-        #     self.rect = self.image.get_rect()
         img = pygame.image.load(os.path.join('images', 'pop3.png')).convert()
         img.convert_alpha()     # optimise alpha
         img.set_colorkey(ALPHA)
-        self.image = img
+        self._image = img
         self.rect = self.image.get_rect()
 
-    def change(self, color_num):
+    @property
+    def image(self):
         """
-        Change sprite color.
+        Property
         """
-        pass
+        return self._image
 
-    
+    def additional_method(self):
+        """
+        additional method to make pylint happy
+        """

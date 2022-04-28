@@ -1,23 +1,25 @@
-import pygame
+"""
+MAIN play file for Overcooked
+"""
 import sys
 import os
+import pygame
 from player import Player
-from helper import random_recipe, time_left, draw_timer, draw_money,draw_recipe
+from helper import random_recipe, time_left, draw_timer, draw_money, draw_recipe
 from helper import PopUp
-'''
-Variables
-'''
-worldx = 960
-worldy = 720
-fps   = 40  # frame rate
-ani   = 4   # animation cycles
-BLUE  = (25, 25, 200)
+
+# Variable
+
+WORLDX = 960
+WORLDY = 720
+FPS = 40  # frame rate
+ANI = 4   # animation cycles
+BLUE = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
-main = True
-money = 0
-ingredients = ["Strawberry","Canteloupe","Grape"]
+MAIN = True
+ingredients = ["Strawberry", "Canteloupe", "Grape"]
 
 
 '''
@@ -27,8 +29,8 @@ pygame.init()
 clock = pygame.time.Clock()
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-world = pygame.display.set_mode([worldx,worldy])
-backdrop = pygame.image.load(os.path.join('images','stage.png'))
+world = pygame.display.set_mode([WORLDX, WORLDY])
+backdrop = pygame.image.load(os.path.join('images', 'stage.png'))
 backdropbox = world.get_rect()
 
 player = Player()   # spawn player
@@ -36,7 +38,7 @@ player.rect.x = 0   # go to x
 player.rect.y = 275   # go to y
 player_list = pygame.sprite.Group()
 player_list.add(player)
-steps = 10  # how many pixels to move
+STEP = 10  # how many pixels to move
 
 pop_ups = PopUp()
 pop_ups.rect.x = 280   # go to x
@@ -49,30 +51,27 @@ recipes = random_recipe(20)
 counter = time_left()
 
 '''
-Main loop
+MAIN loop
 '''
-    
-while main:
+
+while MAIN:
     for event in pygame.event.get():
-        if event.type == pygame.USEREVENT: 
+        if event.type == pygame.USEREVENT:
             counter -= 1
             print(counter)
-            text = str(counter).rjust(3) if counter > 0 else '0'
-        #if counter <= 0: 
-            # pygame.quit()
-            # sys.exit()
-            # main = False 
+            #text = str(counter).rjust(3) if counter > 0 else '0'
+
         if counter >= 0:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT or event.key == ord('a'):
-                    player.control(-steps,0)
+                    player.control(-STEP, 0)
                 if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                    player.control(steps,0)
+                    player.control(STEP, 0)
                 if event.key == pygame.K_UP or event.key == ord('w'):
-                    player.control(0,-steps)
+                    player.control(0, -STEP)
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
-                    player.control(0, steps)
-                
+                    player.control(0, STEP)
+
                 if event.key == ord('f'):
                     if 50 < player.rect.x < 250 and player.rect.y > 500:
                         player.isplate = True
@@ -80,43 +79,43 @@ while main:
 
                     if player.isplate:
                         if 50 < player.rect.x < 250 and player.rect.y < 315:
-                            if player.plate[0] == False:
+                            if player.plate[0] is False:
                                 player.plate[0] = True
-                                if player.plate[1] == False and player.plate[2] == False:
+                                if player.plate[1] is False and player.plate[2] is False:
                                     player.pick_up(2)
-                                elif player.plate[1] == True and player.plate[2] == False:
+                                elif player.plate[1] is True and player.plate[2] is False:
                                     player.pick_up(5)
-                                elif player.plate[1] == True and player.plate[2] == True:
+                                elif player.plate[1] is True and player.plate[2] is True:
                                     player.pick_up(6)
                                 else:
                                     player.pick_up(8)
 
                         elif 355 < player.rect.x < 600 and player.rect.y < 315:
-                            if player.plate[1] == False:
+                            if player.plate[1] is False:
                                 player.plate[1] = True
-                                if player.plate[0] == False and player.plate[2] == False:
+                                if player.plate[0] is False and player.plate[2] is False:
                                     player.pick_up(3)
-                                elif player.plate[0] == True and player.plate[2] == False:
+                                elif player.plate[0] is True and player.plate[2] is False:
                                     player.pick_up(5)
-                                elif player.plate[0] == False and player.plate[2] == True:
+                                elif player.plate[0] is False and player.plate[2] is True:
                                     player.pick_up(7)
                                 else:
-                                    player.pick_up(8)  
+                                    player.pick_up(8)
 
                         elif 655 < player.rect.x < 910 and player.rect.y < 315:
-                            if player.plate[2] == False:
+                            if player.plate[2] is False:
                                 player.plate[2] = True
-                                if player.plate[0] == False and player.plate[1] == False:
+                                if player.plate[0] is False and player.plate[1] is False:
                                     player.pick_up(4)
-                                elif player.plate[0] == True and player.plate[1] == False:
+                                elif player.plate[0] is True and player.plate[1] is False:
                                     player.pick_up(6)
-                                elif player.plate[0] == False and player.plate[1] == True:
+                                elif player.plate[0] is False and player.plate[1] is True:
                                     player.pick_up(7)
                                 else:
                                     player.pick_up(8)
                         else:
                             pass
-                    else: 
+                    else:
                         print("you need a plate")
 
                 if event.key == ord('e'):
@@ -125,25 +124,24 @@ while main:
 
                     elif 355 < player.rect.x < 655 and player.rect.y > 500:
                         player.sell(recipes)
-            
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == ord('a'):
-                    player.control(steps,0)
+                    player.control(STEP, 0)
                 if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                    player.control(-steps,0)
+                    player.control(-STEP, 0)
                 if event.key == pygame.K_UP or event.key == ord('w'):
-                    player.control(0, steps)
+                    player.control(0, STEP)
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
-                    player.control(0, -steps)
-            
-        if event.type == pygame.KEYUP: 
+                    player.control(0, -STEP)
+
+        if event.type == pygame.KEYUP:
             if event.key == ord('q'):
                 pygame.quit()
                 sys.exit()
-                main = False 
+                MAIN = False
 
-
-        # defining boundary 
+        # defining boundary
         if player.rect.x < 0:
             player.rect.x = 0
         elif player.rect.x > 900:
@@ -152,7 +150,6 @@ while main:
             player.rect.y = 275
         elif player.rect.y > 536:
             player.rect.y = 536
-
 
     world.blit(backdrop, backdropbox)
     if counter >= 0:
@@ -164,9 +161,8 @@ while main:
         # pop_ups.change(1)
         pop_ups_list.draw(world)
         draw_money(world, 540, 450, f"{player.geld}")
-    
+
     player.update()  # update player position
-    player_list.draw(world) # draw player
+    player_list.draw(world)  # draw player
     pygame.display.flip()
-    clock.tick(fps)
-    
+    clock.tick(FPS)
