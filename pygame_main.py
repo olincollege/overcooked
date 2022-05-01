@@ -5,8 +5,8 @@ import sys
 import os
 import pygame
 from player import Player
-from helper import random_recipe, time_left, draw_timer, draw_money, draw_recipe
-from helper import PopUp
+from helper import (random_recipe, time_left, draw_timer, draw_money,
+draw_recipe, PopUp)
 
 # Variable
 
@@ -81,11 +81,14 @@ while MAIN:
                         if 50 < player.rect.x < 250 and player.rect.y < 315:
                             if player.plate[0] is False:
                                 player.plate[0] = True
-                                if player.plate[1] is False and player.plate[2] is False:
+                                if (player.plate[1] is False and
+                                player.plate[2] is False):
                                     player.pick_up(2)
-                                elif player.plate[1] is True and player.plate[2] is False:
+                                elif (player.plate[1] is True and
+                                player.plate[2] is False):
                                     player.pick_up(5)
-                                elif player.plate[1] is True and player.plate[2] is True:
+                                elif (player.plate[1] is True and
+                                player.plate[2] is True):
                                     player.pick_up(6)
                                 else:
                                     player.pick_up(8)
@@ -93,11 +96,14 @@ while MAIN:
                         elif 355 < player.rect.x < 600 and player.rect.y < 315:
                             if player.plate[1] is False:
                                 player.plate[1] = True
-                                if player.plate[0] is False and player.plate[2] is False:
+                                if (player.plate[0] is False and
+                                player.plate[2] is False):
                                     player.pick_up(3)
-                                elif player.plate[0] is True and player.plate[2] is False:
+                                elif (player.plate[0] is True and
+                                player.plate[2] is False):
                                     player.pick_up(5)
-                                elif player.plate[0] is False and player.plate[2] is True:
+                                elif (player.plate[0] is False and
+                                player.plate[2] is True):
                                     player.pick_up(7)
                                 else:
                                     player.pick_up(8)
@@ -105,11 +111,14 @@ while MAIN:
                         elif 655 < player.rect.x < 910 and player.rect.y < 315:
                             if player.plate[2] is False:
                                 player.plate[2] = True
-                                if player.plate[0] is False and player.plate[1] is False:
+                                if (player.plate[0] is False and
+                                player.plate[1] is False):
                                     player.pick_up(4)
-                                elif player.plate[0] is True and player.plate[1] is False:
+                                elif (player.plate[0] is True and
+                                player.plate[1] is False):
                                     player.pick_up(6)
-                                elif player.plate[0] is False and player.plate[1] is True:
+                                elif (player.plate[0] is False and
+                                player.plate[1] is True):
                                     player.pick_up(7)
                                 else:
                                     player.pick_up(8)

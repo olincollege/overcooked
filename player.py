@@ -20,7 +20,6 @@ class Player(pygame.sprite.Sprite):
         self.isplate = False
         self.plate = [False, False, False]
         self.geld = 100
-#        self.recipes = random_recipe(10)
         self.recipe_counter = 0
         pygame.sprite.Sprite.__init__(self)
         self.images = []
