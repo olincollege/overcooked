@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.frame = 0  # count frames
         self.isplate = False
         self.plate = [False, False, False]
-        self.geld = 100
+        
         self.recipe_counter = 0
         pygame.sprite.Sprite.__init__(self)
         self.images = []
@@ -29,8 +29,12 @@ class Player(pygame.sprite.Sprite):
             img.convert_alpha()     # optimise alpha
             img.set_colorkey(ALPHA)  # set alpha
             self.images.append(img)
-            self.image = self.images[0]
-            self.rect = self.image.get_rect()
+            
+
+    def draw_player(self):
+        self.image = self.images[0]
+        self.rect = self.image.get_rect()
+
 
     def control(self, x_coord, y_coord):
         """

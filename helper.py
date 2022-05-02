@@ -91,6 +91,8 @@ class PopUp(pygame.sprite.Sprite):
     Creates pop up window at the end of the game
     """
 
+    # pylint-disable: too-few-public-methods
+
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(os.path.join('images', 'pop3.png')).convert()
@@ -105,8 +107,3 @@ class PopUp(pygame.sprite.Sprite):
         Property
         """
         return self._image
-
-    def additional_method(self):
-        """
-        additional method to make pylint happy
-        """
