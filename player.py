@@ -18,8 +18,8 @@ class Player(pygame.sprite.Sprite):
         self.move = [0,0]  # move along X
         self.frame = 0  # count frames
         self.isplate = False
-        self.plate = [False, False, False]
-        self.raisin = False
+        self.plate = [False, False, False,False]
+        self.raisin = self.plate[-1]
         
         self.recipe_counter = 0
         pygame.sprite.Sprite.__init__(self)
@@ -72,7 +72,9 @@ class Player(pygame.sprite.Sprite):
             self.geld -= 20
         elif sum(self.plate) == 1:
             self.geld -= 10
-        self.plate = [False, False, False]
+        self.plate = [False, False, False,False]
+        self.raisin = False
+
 
     def sell(self, recipes):
         """
@@ -87,7 +89,8 @@ class Player(pygame.sprite.Sprite):
                 self.geld += 20
             elif sum(self.plate) == 1:
                 self.geld += 10
-            self.plate = [False, False, False]
+            self.plate = [False, False, False,False]
+            self.raisin = False
             self.recipe_counter += 1
 
         else:

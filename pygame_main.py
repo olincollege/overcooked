@@ -1,6 +1,7 @@
 """
 MAIN play file for Overcooked
 """
+from curses import KEY_UP
 import sys
 import os
 import pygame
@@ -19,7 +20,7 @@ BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
 MAIN = True
-ingredients = ["Strawberry", "Canteloupe", "Grape"]
+ingredients = ["Strawberry", "Canteloupe", "Grape","Raisin"]
 
 
 '''
@@ -50,6 +51,7 @@ start_time = pygame.time.get_ticks()
 recipes = random_recipe(20)
 counter = time_left()
 timer_list = []
+stove = False
 
 '''
 MAIN loop
@@ -124,18 +126,13 @@ while MAIN:
                                     player.pick_up(8)
 
                         elif 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
-                            if player.plate[2] is True and player.raisin is False:
+                            if player.plate[2] is True and player.plate[3] is False and stove is False:
                                 timer_list.append(pygame.time.get_ticks())
                                 print(timer_list)
-                                player.raisin = True
-                                # change the player icon into cooking
-                                #while player.raisin == True:
-                                # oh sh*t I don't know how to visualize the timer
-                                # let's make the game harder by making timer invisible
-                                # the player has to guess how much time has passed
-                                # the cooking time must be within 3-5 s
-                                # world.blit(backdrop, backdropbox)
-                                draw_small_timer(world, 860, 55, 1)
+                                stove = True
+                                print(f"start stove {stove}")
+                                player.plate[3] = True
+                                
                                 
 
 
@@ -163,21 +160,28 @@ while MAIN:
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     player.control(0, -STEP)
 
-                if 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
-                    if event.key == ord('f'):
-                        timer_list.append(pygame.time.get_ticks())
-                        if not 3000 <= timer_list[1] - timer_list[0] <= 5000:  
-                                    player.plate[2] = False
-                                    player.raisin = False
-                                    player.geld -= 10
-                        else:
-                                    #print(pygame.time.get_ticks())
-                                    #timer_list = []
-                                    #player.plate[2] = False
-                            player.plate[2] = False
-                            print(timer_list)
-                            print(player.plate)
-                            print(player.raisin)
+                # if 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
+                #     if event.key == ord('f'):
+                #         timer_list.append(pygame.time.get_ticks())
+                #         if not 3000 <= timer_list[1] - timer_list[0] <= 5000:  
+                #                     player.plate[2] = False
+                #                     player.raisin = False
+                #                     player.geld -= 10
+                #                     player.pick_up(1)
+                #                     print("overcooked")
+
+                #         else:
+                #                     #print(pygame.time.get_ticks())
+                #                     #timer_list = []
+                #                     #player.plate[2] = False
+                            # player.plate[2] = False
+                            # player.pick_up(9) # add in raisin icon
+                            # timer_list = [] # reset the timer_list
+                            # # add in visuals for plate with raisin
+                            # # player.pick_up(9)
+                            # print(timer_list)
+                            # print(player.plate)
+                            # print(player.raisin)
 
 
         if event.type == pygame.KEYUP:
@@ -185,6 +189,18 @@ while MAIN:
                 pygame.quit()
                 sys.exit()
                 MAIN = False
+
+        if stove is True:
+            if event.type == pygame.KEYDOWN:
+                if event.key == ord('e'):
+                    if pygame.time.get_ticks() - timer_list[-1] > 5000:
+                        print("overcooked")
+                        stove = False
+                        player.plate[3] = False
+                    elif 3000 < pygame.time.get_ticks() - timer_list[-1] <= 5000:
+                        print("cooked")
+                        stove = False
+                    print(f'stove = {stove}')
 
         # defining boundary
         if player.rect.x < 0:

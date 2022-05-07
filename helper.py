@@ -9,7 +9,7 @@ BLUE = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
-ingredients = ["Strawberry", "Canteloup", "Grape"]
+ingredients = ["Strawberry", "Canteloup", "Grape","raisin"]
 
 
 def random_recipe(num_recipes):
@@ -27,7 +27,7 @@ def random_recipe(num_recipes):
     recipes = []
     for _ in range(num_recipes):
         recipe = []
-        for _ in range(3):
+        for _ in range(4):
             recipe.append(random.choice([True, False]))
         if sum(recipe) != 0:
             recipes.append(recipe)
