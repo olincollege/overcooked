@@ -60,8 +60,15 @@ class ViewCook(ModelCook):
         text = font.render(str(amount), 1, self.BLACK)  # Create the text
         world.blit(text, self.money_coord)
 
-    def change_player_appearance(self, color_num):
+    # def change_player_appearance(self, color_num):
+    #     """
+    #     Change sprite color.
+    #     """
+    #     self.image = self.images[color_num]
+
+    def draw_player(self, player_appearance):
         """
-        Change sprite color.
+        Draw the player.
         """
-        self.image = self.images[color_num]
+        self.image = self.images[player_appearance]
+        self.rect = self.image.get_rect()

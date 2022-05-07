@@ -12,7 +12,8 @@ class ModelCook(pygame.sprite.Sprite):
         self._geld = 100
         self._isplate = False
         self._plate = [False, False, False]
-        self._player_coord = [0,0]
+        self._player_coord = [0,275]
+        self._STEP = 10  # how many pixels to move
 
 
     def random_recipe(self):
