@@ -5,7 +5,7 @@ import sys
 import os
 import pygame
 from player import Player
-from helper import (random_recipe, time_left, draw_timer, draw_money,
+from helper import (draw_small_timer, random_recipe, time_left, draw_timer, draw_money,
 draw_recipe, PopUp)
 
 # Variable
@@ -49,6 +49,7 @@ pop_ups_list.add(pop_ups)
 start_time = pygame.time.get_ticks()
 recipes = random_recipe(20)
 counter = time_left()
+timer_list = []
 
 '''
 MAIN loop
@@ -58,7 +59,6 @@ while MAIN:
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
             counter -= 1
-            print(counter)
             #text = str(counter).rjust(3) if counter > 0 else '0'
 
         if counter >= 0:
@@ -122,6 +122,25 @@ while MAIN:
                                     player.pick_up(7)
                                 else:
                                     player.pick_up(8)
+
+                        elif 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
+                            if player.plate[2] is True:
+                                timer_list.append(pygame.time.get_ticks())
+                                print(timer_list)
+                                player.raisin = True
+                                # change the player icon into cooking
+                                #while player.raisin == True:
+                                # oh sh*t I don't know how to visualize the timer
+                                # let's make the game harder by making timer invisible
+                                # the player has to guess how much time has passed
+                                # the cooking time must be within 3-5 s
+                                # world.blit(backdrop, backdropbox)
+                                # draw_small_timer(world, 860, 55, 1)
+                                
+
+
+                                
+
                         else:
                             pass
                     else:
@@ -143,6 +162,20 @@ while MAIN:
                     player.control(0, STEP)
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     player.control(0, -STEP)
+
+                if 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
+                    if event.key == ord('f'):
+                        timer_list.append(pygame.time.get_ticks())
+                        if timer_list[1] - timer_list[0] >= 5000:  
+                                    player.plate[2] = False
+                                    player.raisin = False
+                                    player.geld -= 10
+                        else:
+                                    #print(pygame.time.get_ticks())
+                                    #timer_list = []
+                                    #player.plate[2] = False
+                            print(timer_list)
+
 
         if event.type == pygame.KEYUP:
             if event.key == ord('q'):

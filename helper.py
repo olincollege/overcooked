@@ -85,6 +85,13 @@ def draw_recipe(world, x_coord, y_coord, recipe):
     text = font.render(str(current_recipe), 1, BLACK)  # Create the text
     world.blit(text, (x_coord, y_coord))
 
+def draw_small_timer(world, x_coord, y_coord,left_time):
+    font = pygame.font.Font(None, 40)  # Choose the font for the tex_coordt
+    text = font.render(str(left_time), 1, BLACK)  # Create the text
+    world.blit(text, (x_coord, y_coord))  # Draw the text on the screen
+    print("da")
+
+
 
 class PopUp(pygame.sprite.Sprite):
     """
