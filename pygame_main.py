@@ -124,7 +124,7 @@ while MAIN:
                                     player.pick_up(8)
 
                         elif 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
-                            if player.plate[2] is True:
+                            if player.plate[2] is True and player.raisin is False:
                                 timer_list.append(pygame.time.get_ticks())
                                 print(timer_list)
                                 player.raisin = True
@@ -135,7 +135,7 @@ while MAIN:
                                 # the player has to guess how much time has passed
                                 # the cooking time must be within 3-5 s
                                 # world.blit(backdrop, backdropbox)
-                                # draw_small_timer(world, 860, 55, 1)
+                                draw_small_timer(world, 860, 55, 1)
                                 
 
 
@@ -166,7 +166,7 @@ while MAIN:
                 if 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
                     if event.key == ord('f'):
                         timer_list.append(pygame.time.get_ticks())
-                        if timer_list[1] - timer_list[0] >= 5000:  
+                        if not 3000 <= timer_list[1] - timer_list[0] <= 5000:  
                                     player.plate[2] = False
                                     player.raisin = False
                                     player.geld -= 10
@@ -174,7 +174,10 @@ while MAIN:
                                     #print(pygame.time.get_ticks())
                                     #timer_list = []
                                     #player.plate[2] = False
+                            player.plate[2] = False
                             print(timer_list)
+                            print(player.plate)
+                            print(player.raisin)
 
 
         if event.type == pygame.KEYUP:
