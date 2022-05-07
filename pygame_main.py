@@ -1,7 +1,6 @@
 """
 MAIN play file for Overcooked
 """
-from curses import KEY_UP
 import sys
 import os
 import pygame
@@ -125,7 +124,7 @@ while MAIN:
                                 else:
                                     player.pick_up(8)
 
-                        elif 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
+                        elif 655 < player.rect.x < 800 and 350 < player.rect.y < 450:
                             if player.plate[2] is True and player.plate[3] is False and stove is False:
                                 timer_list.append(pygame.time.get_ticks())
                                 print(timer_list)
@@ -170,17 +169,18 @@ while MAIN:
                 MAIN = False
 
         if stove is True:
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:             
                 if event.key == ord('e'):
-                    if pygame.time.get_ticks() - timer_list[-1] > 5000:
-                        print("overcooked")
-                        stove = False
-                        player.plate[3] = False
-                    elif 3000 < pygame.time.get_ticks() - timer_list[-1] <= 5000:
-                        print("cooked")
-                        stove = False
-                    print(f'stove = {stove}')
-                    print(player.plate)
+                    if 655 < player.rect.x < 800 and 350 < player.rect.y < 450:
+                        if pygame.time.get_ticks() - timer_list[-1] > 5000:
+                            print("overcooked")
+                            stove = False
+                            player.plate[3] = False
+                        elif 3000 < pygame.time.get_ticks() - timer_list[-1] <= 5000:
+                            print("cooked")
+                            stove = False
+                        print(f'stove = {stove}')
+                        print(player.plate)
 
         # defining boundary
         if player.rect.x < 0:
@@ -191,6 +191,9 @@ while MAIN:
             player.rect.y = 275
         elif player.rect.y > 536:
             player.rect.y = 536
+        elif player.rect.x > 800 and 380 < player.rect.y < 510:
+            player.rect.x = 780
+
 
     world.blit(backdrop, backdropbox)
     if counter >= 0:
