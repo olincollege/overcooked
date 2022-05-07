@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         
-        for i in range(1, 10):
+        for i in range(1, 18):
             img = pygame.image.load(os.path.join(
                 'images', 'hero' + str(i) + '.png')).convert()
             img.convert_alpha()     # optimise alpha
@@ -66,7 +66,9 @@ class Player(pygame.sprite.Sprite):
         """
         self.isplate = False
         self.pick_up(0)
-        if sum(self.plate) == 3:
+        if sum(self.plate) == 4:
+            self.geld -= 40
+        elif sum(self.plate) == 3:
             self.geld -= 30
         elif sum(self.plate) == 2:
             self.geld -= 20
@@ -83,6 +85,8 @@ class Player(pygame.sprite.Sprite):
         self.isplate = False
         self.pick_up(0)
         if self.plate == recipes[self.recipe_counter]:
+            if sum(self.plate) == 4:
+                self.geld += 40
             if sum(self.plate) == 3:
                 self.geld += 30
             elif sum(self.plate) == 2:

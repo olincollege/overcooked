@@ -114,3 +114,21 @@ class PopUp(pygame.sprite.Sprite):
         Property
         """
         return self._image
+
+class Stove(pygame.sprite.Sprite):
+
+    def __init__(self):
+        self.stove = False
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(os.path.join('images', 'pop4.png')).convert()
+        img.convert_alpha()     # optimise alpha
+        img.set_colorkey(ALPHA)
+        self._image = img
+        self.rect = self.image.get_rect()
+
+    @property
+    def image(self):
+        """
+        Property
+        """
+        return self._image
