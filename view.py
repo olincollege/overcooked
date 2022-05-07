@@ -4,44 +4,26 @@ import pygame
 from model import ModelCook
 
 
-class ViewCook(ModelCook):
+class ViewCook():
 
-    WORLDX = 960
-    WORLDY = 720
-    recipe_coord = (30, 55)
-    timer_coord = (860, 55)
-    money_coord = (700, 55)
-    BLACK = (23, 23, 23)
-    world = pygame.display.set_mode([WORLDX, WORLDY])
-    backdrop = pygame.image.load(os.path.join('images', 'stage.png'))
-    backdropbox = world.get_rect()
-    
-    def __init__(self):
-        super().__init__()
-        pygame.sprite.Sprite.__init__(self)
-        self.images = []
-        for i in range(1, 10):
-            img = pygame.image.load(os.path.join(
-                'images', 'hero' + str(i) + '.png')).convert()
-            img.convert_alpha()     # optimise alpha
-            img.set_colorkey(ALPHA)  # set alpha
-            self.images.append(img)
-            self.image = self.images[0]
-            self.rect = self.image.get_rect()
+    def __init__(self, model:ModelCook):
+        self.model = model
+        self.recipe_coord = (30, 55)
+        self.timer_coord = (860, 55)
+        self.money_coord = (700, 55)
 
-
-    def draw_recipe(self, world, recipe):
+    def draw_recipe(self, recipe):
         """
         Draws the recipes on the game screen
         """
         font = pygame.font.Font(None, 30)  # Choose the font for the text
         current_recipe = []
-        for index, ingredient in enumerate(self.ingredients):
+        for index, ingredient in enumerate(self.model.ingredients):
             if recipe[index] is True:
                 current_recipe.append(ingredient)
 
         text = font.render(str(current_recipe), 1, self.BLACK)  # Create the text
-        world.blit(text, self.recipe_coord)
+        self.model.world.blit(text, self.recipe_coord)
 
     def draw_timer(self, world, left_time):
         """
@@ -60,15 +42,49 @@ class ViewCook(ModelCook):
         text = font.render(str(amount), 1, self.BLACK)  # Create the text
         world.blit(text, self.money_coord)
 
-    # def change_player_appearance(self, color_num):
-    #     """
-    #     Change sprite color.
-    #     """
-    #     self.image = self.images[color_num]
-
     def draw_player(self, player_appearance):
         """
         Draw the player.
         """
-        self.image = self.images[player_appearance]
-        self.rect = self.image.get_rect()
+        self.model.spritecook.image = self.model.spritecook.images[player_appearance]
+        self.model.spritecook.rect = self.model.spritecook.image.get_rect()
+
+    def player_appearance(self):
+        if self.model._plate == [True, False, False,False]:
+            self.change_appearance(2)
+        elif self.model._plate == [False,True,False,False]:
+            self.change_appearance(3)
+        elif self.model._plate == [False,False,True,False]:
+            self.change_appearance(4)
+        elif self.model._plate == [False,False,False,True]:
+            self.change_appearance(16)
+        elif self.model._plate == [True,True,False,False]:
+            self.change_appearance(5)
+        elif self.model._plate == [True,False,True,False]:
+            self.change_appearance(6)
+        elif self.model._plate == [False,True,True,False]:
+            self.change_appearance(7)
+        elif self.model._plate == [True,False,False,True]:
+            self.change_appearance(11)
+        elif self.model._plate == [False,True,False,True]:
+            self.change_appearance(9)
+        elif self.model._plate == [False,False,True,True]:
+            self.change_appearance(10)
+        elif self.model._plate == [True,True,True,False]:
+            self.change_appearance(8)
+        elif self.model._plate == [True,True,False,True]:
+            self.change_appearance(13)
+        elif self.model._plate == [True,False,True,True]:
+            self.change_appearance(14)
+        elif self.model._plate == [False,True,True,True]:
+            self.change_appearance(12)
+        elif self.model._plate == [True,True,True,True]:
+            self.change_appearance(15)
+        else:
+            self.change_appearance(1)
+    
+    def change_appearance(self, sprite_num):
+        """
+        Change sprite appearance.
+        """
+        self.model.spritecook.image = self.model.spritecook.images[sprite_num]
