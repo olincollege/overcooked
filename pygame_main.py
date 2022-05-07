@@ -131,6 +131,7 @@ while MAIN:
                                 print(timer_list)
                                 stove = True
                                 print(f"start stove {stove}")
+                                player.plate[2] = False
                                 player.plate[3] = True
                                 
                                 
@@ -160,28 +161,6 @@ while MAIN:
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     player.control(0, -STEP)
 
-                # if 655 < player.rect.x < 910 and 350 < player.rect.y < 450:
-                #     if event.key == ord('f'):
-                #         timer_list.append(pygame.time.get_ticks())
-                #         if not 3000 <= timer_list[1] - timer_list[0] <= 5000:  
-                #                     player.plate[2] = False
-                #                     player.raisin = False
-                #                     player.geld -= 10
-                #                     player.pick_up(1)
-                #                     print("overcooked")
-
-                #         else:
-                #                     #print(pygame.time.get_ticks())
-                #                     #timer_list = []
-                #                     #player.plate[2] = False
-                            # player.plate[2] = False
-                            # player.pick_up(9) # add in raisin icon
-                            # timer_list = [] # reset the timer_list
-                            # # add in visuals for plate with raisin
-                            # # player.pick_up(9)
-                            # print(timer_list)
-                            # print(player.plate)
-                            # print(player.raisin)
 
 
         if event.type == pygame.KEYUP:
@@ -201,6 +180,7 @@ while MAIN:
                         print("cooked")
                         stove = False
                     print(f'stove = {stove}')
+                    print(player.plate)
 
         # defining boundary
         if player.rect.x < 0:
@@ -219,7 +199,6 @@ while MAIN:
         draw_recipe(world, 30, 55, recipes[player.recipe_counter])
     else:
         pygame.sprite.Sprite.kill(player)
-        # pop_ups.change(1)
         pop_ups_list.draw(world)
         draw_money(world, 540, 450, f"{player.geld}")
 
