@@ -255,6 +255,27 @@ class ModelCook():
             self.toss()
 
     @property
+    def ingredients(self):
+        """
+        Property
+        """
+        return self._ingredients
+
+    @property
+    def recipes(self):
+        """
+        Property
+        """
+        return self._recipes
+
+    @property
+    def recipe_counter(self):
+        """
+        Property
+        """
+        return self._recipe_counter
+
+    @property
     def plate(self):
         """
         Property
