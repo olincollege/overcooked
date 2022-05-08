@@ -126,7 +126,6 @@ class ModelCook():
     def pick_up_item(self):
         if 50 < self.spritecook.rect.x < 250 and self.spritecook.rect.y > 500: # if the player is at the plate station
                     self._isplate = True # player has a plate
-                    # view.player_appearance() # update the player image
         if self._isplate: # if the player is holding a plate
             if 50 < self.spritecook.rect.x < 250 and self.spritecook.rect.y < 315: # if the player is at the first ingredient station
                 if self._plate[0] is False: #if they are not currently holding this ingredient
