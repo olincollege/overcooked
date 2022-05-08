@@ -34,7 +34,6 @@ class ControllerCook():
                 self.control(0, self.model.STEP)
                 
             if event.key == ord('f'):
-                print('pressed f')
                 self.model.pick_up_item()
             
             if event.key == ord('e'):
