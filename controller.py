@@ -1,9 +1,17 @@
-import pygame
+"""
+Defines how input controls the movement of the player.
+"""
 import sys
+import pygame
 from model import ModelCook
 
 
 class ControllerCook():
+    """
+    Controls the movement of the player icon
+    Attributes:
+    move: a list of two integers that represent coor
+    """
 
     def __init__(self, model: ModelCook):
         self.model = model
@@ -26,6 +34,9 @@ class ControllerCook():
             self.move[1]
 
     def key_press(self, event):
+        """
+        changes player position based on keyboard input
+        """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == ord('a'):
                 self.control(-self.model.STEP, 0)

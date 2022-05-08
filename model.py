@@ -200,7 +200,7 @@ class ModelCook():
         elapsed_time = (pygame.time.get_ticks() - self.cooking_timer)/1000
         if elapsed_time < 5:
             self._geld -= 10
-        elif elapsed_time > 5 and elapsed_time < 8:
+        elif 5 <elapsed_time < 8:
             self._plate[3] = True
         elif elapsed_time > 8:
             self._geld -= 10
@@ -253,3 +253,31 @@ class ModelCook():
             self._stove = False
         if self._plate != [False, False, False, False]:
             self.toss()
+
+    @property
+    def plate(self):
+        """
+        Property
+        """
+        return self._plate
+
+    @property
+    def isplate(self):
+        """
+        Property
+        """
+        return self._isplate
+
+    @property
+    def geld(self):
+        """
+        Property
+        """
+        return self._geld
+
+    @property
+    def stove(self):
+        """
+        Property
+        """
+        return self._stove
