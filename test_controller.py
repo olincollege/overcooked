@@ -8,6 +8,7 @@ control = [
     (20, 0, [20, 0]),
 ]
 
+
 @pytest.mark.parametrize("x_coord, y_coord, move_out", control)
 def test_control(x_coord, y_coord, move_out):
     pygame.init()
