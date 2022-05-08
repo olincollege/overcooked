@@ -8,23 +8,22 @@ import pygame
 ALPHA = (0, 0, 0)
 
 
-
 class Player(pygame.sprite.Sprite):
     """
     Spawn a player
     """
 
     def __init__(self):
-        self.move = [0,0]  # move along X
+        self.move = [0, 0]  # move along X
         self.frame = 0  # count frames
         self.isplate = False
-        self.plate = [False, False, False,False]
+        self.plate = [False, False, False, False]
         self.raisin = self.plate[-1]
-        
+
         self.recipe_counter = 0
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        
+
         for i in range(1, 18):
             img = pygame.image.load(os.path.join(
                 'images', 'hero' + str(i) + '.png')).convert()
@@ -38,7 +37,6 @@ class Player(pygame.sprite.Sprite):
     def draw_player(self):
         self.image = self.images[0]
         self.rect = self.image.get_rect()
-
 
     def control(self, x_coord, y_coord):
         """
@@ -74,9 +72,8 @@ class Player(pygame.sprite.Sprite):
             self.geld -= 20
         elif sum(self.plate) == 1:
             self.geld -= 10
-        self.plate = [False, False, False,False]
+        self.plate = [False, False, False, False]
         self.raisin = False
-
 
     def sell(self, recipes):
         """
@@ -93,7 +90,7 @@ class Player(pygame.sprite.Sprite):
                 self.geld += 20
             elif sum(self.plate) == 1:
                 self.geld += 10
-            self.plate = [False, False, False,False]
+            self.plate = [False, False, False, False]
             self.raisin = False
             self.recipe_counter += 1
 

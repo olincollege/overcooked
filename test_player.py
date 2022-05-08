@@ -19,8 +19,10 @@ toss = [
 ]
 
 sell = [
-    ([True, False, True, False], [[True, False, True, False], [True, False, False, False]], 0, 120),
-    ([True, False, False, False], [[True, False, True, False], [True, False, False, False]], 1, 110),
+    ([True, False, True, False], [
+     [True, False, True, False], [True, False, False, False]], 0, 120),
+    ([True, False, False, False], [
+     [True, False, True, False], [True, False, False, False]], 1, 110),
 ]
 
 
@@ -32,6 +34,7 @@ def test_control(x_coord, y_coord, move_out):
     player_test.control(x_coord, y_coord)
     assert player_test.move == move_out
 
+
 @pytest.mark.parametrize("x_coord, y_coord, move_out", update)
 def test_update(x_coord, y_coord, move_out):
     pygame.init()
@@ -41,6 +44,7 @@ def test_update(x_coord, y_coord, move_out):
     player_test.update()
     assert player_test.rect.x == move_out[0]
     assert player_test.rect.y == move_out[1]
+
 
 @pytest.mark.parametrize("plate, geld", toss)
 def test_toss(plate, geld):
@@ -53,6 +57,7 @@ def test_toss(plate, geld):
     assert player_test.raisin == False
     assert player_test.isplate == False
     assert player_test.plate == [False, False, False, False]
+
 
 @pytest.mark.parametrize("plate, recipes, recipe_counter, geld", sell)
 def test_sell(plate, recipes, recipe_counter, geld):

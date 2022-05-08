@@ -9,7 +9,7 @@ BLUE = (25, 25, 200)
 BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
-ingredients = ["Strawberry", "Canteloup", "Grape","raisin"]
+ingredients = ["Strawberry", "Canteloup", "Grape", "raisin"]
 
 
 def random_recipe(num_recipes):
@@ -78,19 +78,19 @@ def draw_recipe(world, x_coord, y_coord, recipe):
     """
     font = pygame.font.Font(None, 30)  # Choose the font for the text
     current_recipe = []
-    for index,ingredient in enumerate(ingredients):
+    for index, ingredient in enumerate(ingredients):
         if recipe[index] is True:
             current_recipe.append(ingredient)
 
     text = font.render(str(current_recipe), 1, BLACK)  # Create the text
     world.blit(text, (x_coord, y_coord))
 
-def draw_small_timer(world, x_coord, y_coord,left_time):
+
+def draw_small_timer(world, x_coord, y_coord, left_time):
     font = pygame.font.Font(None, 40)  # Choose the font for the tex_coordt
     text = font.render(str(left_time), 1, BLACK)  # Create the text
     world.blit(text, (x_coord, y_coord))  # Draw the text on the screen
     print("da")
-
 
 
 class PopUp(pygame.sprite.Sprite):
@@ -114,6 +114,7 @@ class PopUp(pygame.sprite.Sprite):
         Property
         """
         return self._image
+
 
 class Stove(pygame.sprite.Sprite):
 

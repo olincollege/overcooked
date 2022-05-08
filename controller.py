@@ -2,9 +2,10 @@ import pygame
 import sys
 from model import ModelCook
 
+
 class ControllerCook():
 
-    def __init__(self, model:ModelCook):
+    def __init__(self, model: ModelCook):
         self.model = model
         self.move = [0, 0]
 
@@ -19,9 +20,11 @@ class ControllerCook():
         """
         Update sprite position
         """
-        self.model.spritecook.rect.x = self.model.spritecook.rect.x + self.move[0]
-        self.model.spritecook.rect.y = self.model.spritecook.rect.y + self.move[1]
-    
+        self.model.spritecook.rect.x = self.model.spritecook.rect.x + \
+            self.move[0]
+        self.model.spritecook.rect.y = self.model.spritecook.rect.y + \
+            self.move[1]
+
     def key_press(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == ord('a'):
@@ -32,10 +35,10 @@ class ControllerCook():
                 self.control(0, -self.model.STEP)
             if event.key == pygame.K_DOWN or event.key == ord('s'):
                 self.control(0, self.model.STEP)
-                
+
             if event.key == ord('f'):
                 self.model.pick_up_item()
-            
+
             if event.key == ord('e'):
                 self.model.put_down_item()
 

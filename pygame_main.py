@@ -6,7 +6,7 @@ import os
 import pygame
 from player import Player
 from helper import (draw_small_timer, random_recipe, time_left, draw_timer, draw_money,
-draw_recipe, PopUp, Stove)
+                    draw_recipe, PopUp, Stove)
 
 # Variable
 
@@ -19,7 +19,7 @@ BLACK = (23, 23, 23)
 WHITE = (254, 254, 254)
 ALPHA = (0, 0, 0)
 MAIN = True
-ingredients = ["Strawberry", "Canteloupe", "Grape","Raisin"]
+ingredients = ["Strawberry", "Canteloupe", "Grape", "Raisin"]
 
 
 '''
@@ -47,7 +47,7 @@ pop_ups_list = pygame.sprite.Group()
 pop_ups_list.add(pop_ups)
 
 stove = Stove()
-#stove.rect.x = 835   # go to x
+# stove.rect.x = 835   # go to x
 stove.rect.x = 280
 stove.rect.y = 342   # go to y
 stove_list = pygame.sprite.Group()
@@ -103,40 +103,38 @@ while MAIN:
                         print("you need a plate")
 
                 if player.isplate == True:
-                    if player.plate == [True, False, False,False]:
+                    if player.plate == [True, False, False, False]:
                         player.pick_up(2)
-                    elif player.plate == [False,True,False,False]:
+                    elif player.plate == [False, True, False, False]:
                         player.pick_up(3)
-                    elif player.plate == [False,False,True,False]:
+                    elif player.plate == [False, False, True, False]:
                         player.pick_up(4)
-                    elif player.plate == [False,False,False,True]:
+                    elif player.plate == [False, False, False, True]:
                         player.pick_up(16)
-                    elif player.plate == [True,True,False,False]:
+                    elif player.plate == [True, True, False, False]:
                         player.pick_up(5)
-                    elif player.plate == [True,False,True,False]:
+                    elif player.plate == [True, False, True, False]:
                         player.pick_up(6)
-                    elif player.plate == [False,True,True,False]:
+                    elif player.plate == [False, True, True, False]:
                         player.pick_up(7)
-                    elif player.plate == [True,False,False,True]:
+                    elif player.plate == [True, False, False, True]:
                         player.pick_up(11)
-                    elif player.plate == [False,True,False,True]:
+                    elif player.plate == [False, True, False, True]:
                         player.pick_up(9)
-                    elif player.plate == [False,False,True,True]:
+                    elif player.plate == [False, False, True, True]:
                         player.pick_up(10)
-                    elif player.plate == [True,True,True,False]:
+                    elif player.plate == [True, True, True, False]:
                         player.pick_up(8)
-                    elif player.plate == [True,True,False,True]:
+                    elif player.plate == [True, True, False, True]:
                         player.pick_up(13)
-                    elif player.plate == [True,False,True,True]:
+                    elif player.plate == [True, False, True, True]:
                         player.pick_up(14)
-                    elif player.plate == [False,True,True,True]:
+                    elif player.plate == [False, True, True, True]:
                         player.pick_up(12)
-                    elif player.plate == [True,True,True,True]:
+                    elif player.plate == [True, True, True, True]:
                         player.pick_up(15)
                     else:
                         player.pick_up(1)
-
-
 
                 if event.key == ord('e'):
                     if 760 < player.rect.x < 910 and player.rect.y > 500:
@@ -155,16 +153,11 @@ while MAIN:
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     player.control(0, -STEP)
 
-
-
-        
-
             # if stove is True:
             #     if pygame.time.get_ticks() - timer_list[-1] > 5000:
             #         world.blit(backdrop, backdropbox)
             #         stove_list.draw(world)
             #         print("da")
-
 
             if event.type == pygame.KEYDOWN:
                 if event.key == ord('e'):
@@ -174,7 +167,7 @@ while MAIN:
                             print(timer_list)
                             stove = True
                             print(f"start stove {stove}")
-                            player.plate[2] = False   
+                            player.plate[2] = False
 
                 elif event.key == ord('f'):
                     if 635 < player.rect.x < 800 and 300 < player.rect.y < 500:
@@ -205,7 +198,6 @@ while MAIN:
             player.rect.y = 536
         elif player.rect.x > 800 and 380 < player.rect.y < 510:
             player.rect.x = 780
-
 
     world.blit(backdrop, backdropbox)
     if counter >= 0:
