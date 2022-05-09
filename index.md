@@ -7,11 +7,9 @@ For each ticket, players must pick up a plate, fill the plate with the correct i
 
 If a player serves a correct plate they make money; if they serve an incorrect plate or they need to trash the ingredients (such as if they pick up the wrong combination of ingredients), they lose money. Once the player serves the correct plate the ticket disappears and a new ticket appears in it's place. The player continues to fulfill tickets until they run out of time. 
 
-### Unique Features
-
-No idea what to put here
-
 ### Project Demo
+
+<video src="https://drive.google.com/file/d/1s-oLMFiaApoEoY4TkBS7xS0ijMlTiA9h/preview" controls="controls" style="max-width: 640px";></video>
 
 Add video and screenshots here
 
@@ -33,7 +31,7 @@ Major: Engineering with Design
 Best Quotes:
 "Pygame WHY"
 "I don't think this is the problem but let's try it anyway"
-"I don't remember how to write unit tests" (x5)
+"pytest, if you pick up the plate, YOU HAVE THE PLATE NOW!" *pause* "oh wait I misspelled plate"
 
 #### Sophie Wu
 Class of 2022
@@ -49,11 +47,3 @@ We used Figma to create our game board and our player's sprites, along with the 
 We used pygame tutorials on opensource.com to get started, including; https://opensource.com/article/17/12/game-framework-python, https://opensource.com/article/17/12/game-python-add-a-player, and https://opensource.com/article/17/12/game-python-moving-player.
 
 We used the pygame library (https://www.pygame.org/wiki/about) to visualize our game.
-
-Unique features of your project
-Screenshots or demos of your project
-Installation instructions (or link to the relevant portion of the README)
-Download links for your project
-A link to your project’s GitHub page
-Information about you (to the extent you are comfortable)
-Attribution for any external resources you used
