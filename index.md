@@ -5,22 +5,29 @@ The goal of our project was to recreate a simplified version of the video game '
 
 For each ticket, players must pick up a plate, fill the plate with the correct ingredients and serve the plate. If the plate contains a cooked item, the player also needs to get the raw ingredient from the ingredient station, drop the item off at the cooking station, and pick up to cooked item. The player engages with these actions using the AWSD or arrow keys to move around as well as the f key to pick up items and the e key to put down items. 
 
-If a player serves a correct plate they make money; if they serve an incorrect plate or they need to trash the ingredients (such as if they pick up the wrong combination of ingredients), they lose money. Once the player serves the correct plate the ticket disappears and a new ticket appears in it's place. The player continues to fulfill tickets until they run out of time. 
+If a player serves a correct plate they make money; if they serve an incorrect plate or they need to trash the ingredients (such as if they pick up the wrong combination of ingredients), they lose money. Once the player serves the correct plate the ticket disappears and a new ticket appears in its place. The player continues to fulfill tickets until they run out of time. 
 
-### Project Demo
-
-#### Our Video Presentation
+### Presentation
 
 <iframe src="https://drive.google.com/file/d/1kOMOgNr4N4KlqRJ3mAJIwVXK1TiSo0dp/preview" width="640" height="480" allow="autoplay"></iframe>
-
-#### Screenshots of the Game
-
 
 ### How to Play
 
 In order to play our game, visit our github repository and fork the main branch. You will need to install pygame by running pip install pygame. Once you have done that, run python play_game.py and your pygame window will pop up. When you are done, press q to quit the game.
 
-Once the game launches, move around the board using the AWSD or arrow keys. When you see a ticket in the top left, grab a plate by moving in range of the plate station and pressing f to pick up the item. Move to an ingredients station and press f to pick up the ingredient and add it to your plate. If you need to cook an ingredient, take the ingredient to the cooking station and put it down by pressing e. Wait 5 seconds for your ingredient to cook, then press f to pick up the cooked ingredient again. But don't wait too long! If you leave the ingredient cooking for more than 8 seconds, it'll be overcooked! If the ingredient is overcooked picking it up will automatically trash that ingredient and you'll lose money. 
+
+![Game Board at start, player as empty hand](/game_board.jpg)
+###### Game Board
+
+Once the game launches, move around the board using the AWSD or arrow keys. When you see a ticket in the top left, grab a plate by moving in range of the plate station and pressing f to pick up the item. Move to an ingredients station and press f to pick up the ingredient and add it to your plate. Your icon will change to reflect the items on your plate.
+
+![Board with player holding items](holding_items.jpg)
+###### Player Holding a Strawberry, Canteloupe, and Grape
+
+If you need to cook an ingredient, take the ingredient to the cooking station and put it down by pressing e. Wait 5 seconds for your ingredient to cook, then press f to pick up the cooked ingredient again. But don't wait too long! If you leave the ingredient cooking for more than 8 seconds, it'll be overcooked! If the ingredient is overcooked picking it up will automatically trash that ingredient and you'll lose money. 
+
+![Board with Item Overcooked](overcooked.jpg)
+###### Overcooked Item at Cooking Station
 
 Once your plate is ready, move to the serve station and press e to serve the plate. If you've made it correctly, you'll make money! If not, the plate will be trashed, you'll lose money, and you'll have to start again. If at any time throughout this process you pick up the wrong ingredient, you can trash your plate and start again, but you'll lose money.
 
@@ -29,12 +36,17 @@ Keep an eye on the clock in the top right corner. When that hits 0, it's game ov
 ### About Us
 
 #### Evelyn Kessler
-Class of 2024 /n
+Class of 2024
+
 Major: Engineering with Design
-Best Quotes: /n
-"Pygame WHY" /n 
-"I don't think this is the problem but let's try it anyway" /n
-"pytest, if you pick up the plate, YOU HAVE THE PLATE NOW!" *pause* "oh wait I misspelled plate" /n
+
+Best Quotes:
+
+"Pygame WHY"
+
+"I don't think this is the problem but let's try it anyway"
+
+"pytest, if you pick up the plate, YOU HAVE THE PLATE NOW!" *pause* "oh wait I misspelled plate"
 
 #### Sophie Wu
 Class of 2022
