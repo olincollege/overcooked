@@ -1,3 +1,5 @@
+# OverCooked for Dummies
+
 ### Project Overview
 The goal of our project was to recreate a simplified version of the video game 'Overcooked'. The original overcooked is a game where players try to create dishes to fulfill order tickets as fast as possible. If they go too fast and forget things, their food gets overcooked. In the real game there are many different stations, players can have dozens of things cooking or washing at a time, and the game increases in complexity the more the player plays. In our simplified version there are only eight stations; three ingredient stations, a cooking station, a plate station, a serve station, and a trash station. 
 
@@ -16,18 +18,23 @@ If a player serves a correct plate they make money; if they serve an incorrect p
 In order to play our game, visit our github repository and fork the main branch. You will need to install pygame by running pip install pygame. Once you have done that, run python play_game.py and your pygame window will pop up. When you are done, press q to quit the game.
 
 
-![Game Board at start, player as empty hand](/game_board.jpg)
-###### Game Board
+![Game Board at start, player as empty hand](game_board.jpg)
+#### Game Board
+
 
 Once the game launches, move around the board using the AWSD or arrow keys. When you see a ticket in the top left, grab a plate by moving in range of the plate station and pressing f to pick up the item. Move to an ingredients station and press f to pick up the ingredient and add it to your plate. Your icon will change to reflect the items on your plate.
 
+
 ![Board with player holding items](holding_items.jpg)
-###### Player Holding a Strawberry, Canteloupe, and Grape
+#### Player Holding a Strawberry, Canteloupe, and Grape
+
 
 If you need to cook an ingredient, take the ingredient to the cooking station and put it down by pressing e. Wait 5 seconds for your ingredient to cook, then press f to pick up the cooked ingredient again. But don't wait too long! If you leave the ingredient cooking for more than 8 seconds, it'll be overcooked! If the ingredient is overcooked picking it up will automatically trash that ingredient and you'll lose money. 
 
+
 ![Board with Item Overcooked](overcooked.jpg)
-###### Overcooked Item at Cooking Station
+#### Overcooked Item at Cooking Station
+
 
 Once your plate is ready, move to the serve station and press e to serve the plate. If you've made it correctly, you'll make money! If not, the plate will be trashed, you'll lose money, and you'll have to start again. If at any time throughout this process you pick up the wrong ingredient, you can trash your plate and start again, but you'll lose money.
 
