@@ -9,9 +9,12 @@ If a player serves a correct plate they make money; if they serve an incorrect p
 
 ### Project Demo
 
+#### Our Video Presentation
+
 <iframe src="https://drive.google.com/file/d/1kOMOgNr4N4KlqRJ3mAJIwVXK1TiSo0dp/preview" width="640" height="480" allow="autoplay"></iframe>
 
-Add video and screenshots here
+#### Screenshots of the Game
+
 
 ### How to Play
 
