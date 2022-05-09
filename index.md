@@ -1,5 +1,3 @@
-# OverCooked for Dummies
-
 ### Project Overview
 The goal of our project was to recreate a simplified version of the video game 'Overcooked'. The original overcooked is a game where players try to create dishes to fulfill order tickets as fast as possible. If they go too fast and forget things, their food gets overcooked. In the real game there are many different stations, players can have dozens of things cooking or washing at a time, and the game increases in complexity the more the player plays. In our simplified version there are only eight stations; three ingredient stations, a cooking station, a plate station, a serve station, and a trash station. 
 
