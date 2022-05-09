@@ -182,7 +182,7 @@ class ModelCook():
 
         if (635 < self.spritecook.rect.x < 835
         and 342 < self.spritecook.rect.y < 542):
-            if self._stove is True and self._isplate is True:
+            if self._stove is True and self._isplate is True and self._plate[3] is False:
                 self.how_cooked()
                 self._stove = False
 
@@ -215,7 +215,6 @@ class ModelCook():
         elif (655 < self.spritecook.rect.x < 800
         and 300 < self.spritecook.rect.y < 500):
             if (self._plate[2] is True
-            and self._plate[3] is False
             and self._stove is False):
                 self.cooking_timer = pygame.time.get_ticks()
                 self._stove = True
@@ -229,11 +228,11 @@ class ModelCook():
             self.spritecook.rect.x = 0
         elif self.spritecook.rect.x > 900:
             self.spritecook.rect.x = 900
-        elif self.spritecook.rect.y < 275:
+        if self.spritecook.rect.y < 275:
             self.spritecook.rect.y = 275
         elif self.spritecook.rect.y > 536:
             self.spritecook.rect.y = 536
-        elif (self.spritecook.rect.x > 800
+        if (self.spritecook.rect.x > 800
         and 380 < self.spritecook.rect.y < 510):
             self.spritecook.rect.x = 780
 
