@@ -9,7 +9,7 @@ If a player serves a correct plate they make money; if they serve an incorrect p
 
 ### Project Demo
 
-<video src="https://drive.google.com/file/d/1s-oLMFiaApoEoY4TkBS7xS0ijMlTiA9h/preview" controls="controls" style="max-width: 640px";></video>
+<iframe src="https://drive.google.com/file/d/1kOMOgNr4N4KlqRJ3mAJIwVXK1TiSo0dp/preview" width="640" height="480" allow="autoplay"></iframe>
 
 Add video and screenshots here
 
