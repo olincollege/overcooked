@@ -29,9 +29,11 @@ model.popup.rect.y = 360
 pop_ups_list = pygame.sprite.Group()
 pop_ups_list.add(model.popup)
 
+# Set up view and controller
 view = ViewCook(model)
 controller = ControllerCook(model)
 
+# Initialize Pygame
 pygame.init()
 clock = pygame.time.Clock()
 pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -40,6 +42,7 @@ counter = model.time_left()
 MAIN = True
 FPS = 40
 
+# Generate random recipes in the game
 model.random_recipe()
 
 while MAIN:
@@ -47,30 +50,25 @@ while MAIN:
         if event.type == pygame.USEREVENT:
             counter -= 1  # decrease the counter every second
 
-        controller.key_press(event)
-        view.player_appearance()
+        controller.key_press(event) # Call the function when a key is pressed
+        view.player_appearance() # Check the icon of the player
 
-        if event.type == pygame.KEYUP:
-            if event.key == ord('q'):
-                pygame.quit()
-                sys.exit()
-                MAIN = False
+    model.player_bounds() # Keep the player in bounds
+    world.blit(backdrop, backdropbox) # Redraw the world background
 
-    model.player_bounds()
-    world.blit(backdrop, backdropbox)
-
+    # Make visuals for the stats in game
     view.draw_money()
     view.draw_timer()
     view.draw_recipe()
     view.draw_cooker_timer()
 
     if counter < 0:
-        model.end_game()
-        pygame.sprite.Sprite.kill(model.spritecook)
+        model.end_game() # Adjust money for items in player hand
+        pygame.sprite.Sprite.kill(model.spritecook) # Kill the sprite
         pop_ups_list.draw(world)  # draw pop up
         view.draw_money_end() # display final money count
 
     controller.update()  # update player position
     player_list.draw(world)  # draw player
-    pygame.display.flip()
-    clock.tick(FPS)
+    pygame.display.flip() # Update display
+    clock.tick(FPS) # Move the clock

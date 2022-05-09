@@ -1,5 +1,5 @@
 """
-Adjust kitchen background, player icons, and plate visuals
+Adjust kitchen background, player icons, and plate visuals.
 """
 import pygame
 from model import ModelCook
@@ -7,22 +7,23 @@ from model import ModelCook
 
 class ViewCook():
     """
-    displays the recipes, timer, money count, cook timer, and changes player
+    Displays the recipes, timer, money count, cook timer, and changes player
     icon.
+
     Attributes:
-    recipe_coord: a tuple of ints that represent the location for displaying
-    recipes
-    timer_coord: a tuple of ints that represent the location for displaying
-    timer
-    cooker_timer_coord: a tuple of ints that represent the location for
-    displaying cooker timer
-    money_coord: a tuple of ints that represent the location for displaying
-    money count
-    money_coord_end: a tuple of ints that represent the location for displaying
-    money count at the end of the game
-    BLACK: a tuple defining the RGB value of the color black
-    WHITE: a tuple defining the RGB value of the color white
+        recipe_coord: a tuple of ints that represent the location for displaying
+        recipes
+        timer_coord: a tuple of ints that represent the location for displaying
+        timer
+        cooker_timer_coord: a tuple of ints that represent the location for
+        displaying cooker timer
+        money_coord: a tuple of ints that represent the location for displaying
+        money count
+        money_coord_end: a tuple of ints that represent the location for displaying
+        money count at the end of the game
+        BLACK: a tuple defining the RGB value of the color black
     """
+
 
     def __init__(self, model: ModelCook):
         self.model = model
@@ -32,12 +33,11 @@ class ViewCook():
         self.money_coord = (700, 55)
         self.money_coord_end = (540, 450)
         self.black = (23, 23, 23)
-        self.white = (255, 255, 255)
 
 
     def draw_recipe(self):
         """
-        Draws the recipes on the game screen
+        Draws the recipes on the game screen.
         """
         recipe = self.model.recipes[self.model.recipe_counter]
         font = pygame.font.Font(None, 30)  # Choose the font for the text
@@ -51,7 +51,7 @@ class ViewCook():
 
     def draw_timer(self):
         """
-        Draws the time on the game screen
+        Draws the time on the game screen.
         """
         left_time = self.model.time_left()
         font = pygame.font.Font(None, 60)  # Choose the font for the tex_coordt
@@ -61,7 +61,7 @@ class ViewCook():
 
     def draw_cooker_timer(self):
         """
-        Draws the time on the game scree4
+        Draws the stove time on the game screen.
         """
         if self.model.stove is True:
             elapsed_time = int(
@@ -82,7 +82,7 @@ class ViewCook():
 
     def draw_money(self):
         """
-        Draws the money on the game screen
+        Draws the money on the game screen.
         """
         font = pygame.font.Font(None, 60)  # Choose the font for the text
         text = font.render(str(self.model.geld), 1,
@@ -95,12 +95,12 @@ class ViewCook():
         """
         font = pygame.font.Font(None, 60)  # Choose the font for the text
         text = font.render(str(self.model.geld), 1,
-                           self.white)  # Create the text
+                           (255, 255, 255))  # Create the text
         self.model.world.blit(text, self.money_coord_end)
 
     def player_appearance(self):
         """
-        changes the player icon according to what is in the plate
+        Changes the player icon according to what is in the plate.
         """
         if self.model.plate == [True, False, False, False]:
             self.change_appearance(2)

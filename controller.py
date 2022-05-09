@@ -8,9 +8,10 @@ from model import ModelCook
 
 class ControllerCook():
     """
-    Controls the movement of the player icon
+    Controls the movement of the player icon.
+
     Attributes:
-    move: a list of two integers that represent coor
+        move: a list of two integers that represent coord
     """
 
     def __init__(self, model: ModelCook):
@@ -19,14 +20,14 @@ class ControllerCook():
 
     def control(self, x_coord, y_coord):
         """
-        control player movement
+        Control player movement.
         """
         self.move[0] += x_coord
         self.move[1] += y_coord
 
     def update(self):
         """
-        Update sprite position
+        Update sprite position.
         """
         self.model.spritecook.rect.x = self.model.spritecook.rect.x + \
             self.move[0]
@@ -35,7 +36,7 @@ class ControllerCook():
 
     def key_press(self, event):
         """
-        changes player position based on keyboard input
+        Interprets keyboard input and calls appropriate functions.
         """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == ord('a'):

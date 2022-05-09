@@ -1,5 +1,5 @@
 """
-defines all classes that make up the model of the game
+Defines all classes that make up the model of the game.
 """
 import random
 import os
@@ -8,11 +8,11 @@ import pygame
 
 class SpriteCook(pygame.sprite.Sprite):
     """
-    Spawn a player and set up its icon
+    Spawn a player and set up its icon.
 
     Attributes:
-    images: a list of all icons for the player
-    image: individual icons
+        images: a list of all icons for the player
+        image: individual icons
     """
     def __init__(self, world):
         self.world = world
@@ -30,10 +30,10 @@ class SpriteCook(pygame.sprite.Sprite):
 
 class PopUp(pygame.sprite.Sprite):
     """
-    Creates pop up window at the end of the game
+    Creates pop up window at the end of the game.
 
     Attributes:
-    image: the icons for end-of-game popups
+        image: the icon for end-of-game popups
     """
 
     def __init__(self, world):
@@ -48,21 +48,21 @@ class PopUp(pygame.sprite.Sprite):
 
 class ModelCook():
     """
-    defines the length of the game, the recipes, the selling and tossing of
-    food, the status of cooking, pick up and put down items
+    Defines the length of the game, the recipes, the selling and tossing of
+    food, the status of cooking, pick up and put down items.
     Attributes:
-    world: a pygame object that defines the game visuals
-    _recipe_counter: an integer that counts the recipes used
-    _ingredients: a list of all ingredients in the recipes
-    _num_recipes: an int for the number of recipes randomly generated
-    _geld: an int for the initial number of money
-    _isplate: a binary representing if the player has a plate in hand
-    _plate: a list of binaries showing if an ingredient is present in the plate
-    _stove: a binary showing if the stove is occupied
-    cooking_timer: an int that counts the cooking time
-    _recipes: a list of recipes being used in the game
-    _raisin: a binary of if raisin is in the plate
-    STEP: an int showing how many pixels to move
+        world: a pygame object that defines the game visuals
+        _recipe_counter: an integer that counts the recipes used
+        _ingredients: a list of all ingredients in the recipes
+        _num_recipes: an int for the number of recipes randomly generated
+        _geld: an int for the initial number of money
+        _isplate: a binary representing if the player has a plate in hand
+        _plate: a list of binaries showing if an ingredient is present in the plate
+        _stove: a binary showing if the stove is occupied
+        cooking_timer: an int that counts the cooking time
+        _recipes: a list of recipes being used in the game
+        _raisin: a binary of if raisin is in the plate
+        STEP: an int showing how many pixels to move
     """
 
     def __init__(self, world):
@@ -84,15 +84,7 @@ class ModelCook():
 
     def random_recipe(self):
         """
-        Generate random recipes represented by a list of binaries
-
-        Args:
-            num_recipes: an int of how many recipes that needs to be generated
-
-        Returns:
-            a list of list, which consists of three binaries showing if a fruit
-            is present in the recipe
-
+        Generate random recipes represented by a list of binaries.
         """
         for _ in range(self._num_recipes):
             recipe = []
@@ -103,7 +95,7 @@ class ModelCook():
 
     def time_left(self):
         """
-        Counts the time left in the game
+        Counts the time left in the game.
 
         Returns:
             Time left in the game, in milliseconds
@@ -121,7 +113,7 @@ class ModelCook():
 
     def toss(self):
         """
-        Toss the plate and food and lose money
+        Toss the plate and food and lose money.
         """
         self._isplate = False
         if sum(self._plate) == 4:
@@ -137,7 +129,7 @@ class ModelCook():
 
     def sell(self):
         """
-        Sell the plate and food and gain money
+        Sell the plate and food and gain money.
         """
         self._isplate = False
         if self._plate == self._recipes[self._recipe_counter]:
@@ -158,7 +150,8 @@ class ModelCook():
 
     def pick_up_item(self):
         """
-        pick up an ingredient and put it into plate
+        Pick up an item, such as a raw ingredient, a cooked ingredient or a
+        plate.
         """
         if 50 < self.spritecook.rect.x < 250 and self.spritecook.rect.y > 500:
             # if the player is at the plate station
@@ -178,7 +171,7 @@ class ModelCook():
                 if self._plate[1] is False:
                     self._plate[1] = True
 
-            elif (655 < self.spritecook.rect.x < 910
+            elif (620 < self.spritecook.rect.x < 910
             and self.spritecook.rect.y < 315):
                 # third ingredient station
                 if self._plate[2] is False:
@@ -187,15 +180,15 @@ class ModelCook():
         else:
             print('You need a plate.')
 
-        if (635 < self.spritecook.rect.x < 800
-        and 300 < self.spritecook.rect.y < 500):
+        if (635 < self.spritecook.rect.x < 835
+        and 342 < self.spritecook.rect.y < 542):
             if self._stove is True and self._isplate is True:
                 self.how_cooked()
                 self._stove = False
 
     def how_cooked(self):
         """
-        tests if the raisin is undercooked, well-cooked, or overcooked
+        Tests if the raisin is undercooked, well-cooked, or overcooked.
         """
         elapsed_time = (pygame.time.get_ticks() - self.cooking_timer)/1000
         if elapsed_time < 5:
@@ -209,9 +202,9 @@ class ModelCook():
 
     def put_down_item(self):
         """
-        put a plate down to cook, trash or sell
+        Put a plate down to trash or sell, or put grape on stove to cook.
         """
-        if (760 < self.spritecook.rect.x < 910
+        if (720 < self.spritecook.rect.x < 910
         and self.spritecook.rect.y > 500):
             self.toss()
 
@@ -230,7 +223,7 @@ class ModelCook():
 
     def player_bounds(self):
         """
-        set up the boundary that the player can move in
+        Set up the boundary that the player can move in.
         """
         if self.spritecook.rect.x < 0:
             self.spritecook.rect.x = 0
@@ -246,7 +239,7 @@ class ModelCook():
 
     def end_game(self):
         """
-        tosses everything at the end of the game
+        Tosses everything at the end of the game.
         """
         if self._stove is True:
             self._geld -= 10
