@@ -1,4 +1,4 @@
-# overcooked
+# Overcooked
 A python implementation of the videogame Overcooked.
 Final Project by Sophie Wu and Evelyn Kessler.
 
@@ -8,7 +8,7 @@ This project uses the pygame library, which is a set of Python modules designed 
 In order to install our game, first fork the main branch of this repository, then install pygame by running pip install pygame. Once you have done that, run python play_game.py and your pygame window will pop up. When you are done, press q to quit the game.
 
 ## How to Play
-Visit our website at ___ to learn how to play the game.
+Visit our website at https://olincollege.github.io/overcooked/ to learn how to play the game.
 
 ## Attribution
 We used Figma to create our game board and our player’s sprites, along with the ‘Iconify’ plug in for the various icons.
